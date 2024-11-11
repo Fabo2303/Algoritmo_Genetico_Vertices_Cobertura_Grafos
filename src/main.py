@@ -2,7 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 
 from src.algoritmo_genetico import algoritmo_genetico
-from src.utilz import dibujar_grafo, lector
+from src.utilz import dibujar_grafo, lector, create_output_file
 
 grafos = []
 grafo_seleccionado = []
@@ -75,10 +75,10 @@ def usar_algoritmo_genetico(poblacion, generaciones, prob_mutacion):
     print(f"Generaciones: {generaciones}")
     print(f"Probabilidad de mutación: {prob_mutacion}")
     print("---------------Resultados---------------")
-    mejor_solucion_no_dirigido = algoritmo_genetico(grafo_seleccionado[0], poblacion, generaciones, prob_mutacion,dirigido=grafo_seleccionado[1])
-    print("---------------Solución---------------")
-    print("Mejor solución encontrada:", mejor_solucion_no_dirigido)
+    mejor_solucion_no_dirigido, celdas = algoritmo_genetico(grafo_seleccionado[0], poblacion, generaciones, prob_mutacion,dirigido=grafo_seleccionado[1])
     add_image_solution(grafo_seleccionado, "files/solucion_grafo.png", mejor_solucion_no_dirigido, False)
+    create_output_file(celdas)
+
 
 
 if __name__ == '__main__':

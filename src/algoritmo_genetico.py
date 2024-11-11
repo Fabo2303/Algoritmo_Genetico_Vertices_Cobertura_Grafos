@@ -89,6 +89,7 @@ def mutacion(individuo, prob_mutacion):
 
 # Algoritmo genético principal
 def algoritmo_genetico(grafo, tam_poblacion, generaciones, prob_mutacion, dirigido=False):
+    celdas.clear()
     poblacion = inicializar_poblacion(tam_poblacion, grafo)
 
     for _ in range(generaciones):
@@ -138,9 +139,10 @@ def algoritmo_genetico(grafo, tam_poblacion, generaciones, prob_mutacion, dirigi
         print("Mejor solución de la generación:", mejor_individuo, " Aptitud:",
               evaluar_aptitud_general(mejor_individuo, grafo, dirigido))
 
+    print("---------------Solución---------------")
+    print("Mejor solución encontrada:", mejor_individuo)
+    print("Aptitud:", evaluar_aptitud_general(mejor_individuo, grafo, dirigido))
     celdas.append(create_title("MEJOR SOLUCIÓN"))
     celdas.extend(create_cells(mejor_individuo))
     evaluar_aptitud_general(mejor_individuo, grafo, dirigido, torneo=True)
-    create_output_file(celdas)
-    celdas.clear()
-    return mejor_individuo
+    return mejor_individuo, celdas
