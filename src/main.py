@@ -1,8 +1,8 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
-from algoritmo_genetico import algoritmo_genetico
-from utilz import dibujar_grafo, lector
+from src.algoritmo_genetico import algoritmo_genetico
+from src.utilz import dibujar_grafo, lector
 
 grafos = []
 grafo_seleccionado = []
@@ -30,7 +30,7 @@ def add_select_graph(event, action, x_label, y_label):
     select_item = tk.Listbox(root, bg="white", fg="black", font=("Arial", 16), width=20, height=5)
     select_item.place(x=x_label, y=y_label)
     for i, (grafo, dirigido) in enumerate(grafos):
-        select_item.insert(i, f"Grafo {i + 1} {'dirigido' if dirigido else 'no dirigido'}")
+        select_item.insert(i, f"Grafo {i + 1} - {'dirigido' if dirigido else 'no dirigido'}")
     select_item.bind(event, action)
     return select_item
 
@@ -76,8 +76,9 @@ def usar_algoritmo_genetico(poblacion, generaciones, prob_mutacion):
     print(f"Probabilidad de mutación: {prob_mutacion}")
     print("---------------Resultados---------------")
     mejor_solucion_no_dirigido = algoritmo_genetico(grafo_seleccionado[0], poblacion, generaciones, prob_mutacion,dirigido=grafo_seleccionado[1])
+    print("---------------Solución---------------")
     print("Mejor solución encontrada:", mejor_solucion_no_dirigido)
-    add_image_solution(grafo_seleccionado, "solucion_grafo.png", mejor_solucion_no_dirigido, False)
+    add_image_solution(grafo_seleccionado, "files/solucion_grafo.png", mejor_solucion_no_dirigido, False)
 
 
 if __name__ == '__main__':
@@ -98,7 +99,7 @@ if __name__ == '__main__':
     select = add_select_graph(
         "<<ListboxSelect>>",
         lambda event:
-        add_image_selected(grafos[event.widget.curselection()[0]], "grafo.png"),
+        add_image_selected(grafos[event.widget.curselection()[0]], "files/grafo.png"),
         51,
         320
     )
